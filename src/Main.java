@@ -1,4 +1,6 @@
+import titles.calcs.Recommendations;
 import titles.calcs.TimeCalcs;
+import titles.model.Episodes;
 import titles.model.Movies;
 import titles.model.Series;
 
@@ -14,15 +16,7 @@ public class Main {
         megamind.setTitle("Megamind");
         megamind.setLength(130);
 
-        hatsuneMiku.showTechnicalInfos();
-        hatsuneMiku.rateMovie(8);
-        //hatsuneMiku.rateMovie(10);
-
-        System.out.println(hatsuneMiku.averageRating());
-        System.out.println(hatsuneMiku.getNumOfRatings());
-
         Series siliconValley = new Series();
-
         siliconValley.setTitle("Silicon Valley");
         siliconValley.setReleaseYear(2014);
         siliconValley.setIncludedInPlan(true);
@@ -32,16 +26,25 @@ public class Main {
         siliconValley.setEpisodesPerSeason(10);
         siliconValley.setEpisodeLength(30);
 
-        siliconValley.showTechnicalInfos();
-        siliconValley.showSpecificInfos();
-
         TimeCalcs calcs = new TimeCalcs();
 
         calcs.include(hatsuneMiku);
         calcs.include(megamind);
         calcs.include(siliconValley);
-        System.out.println(calcs.getTotalTime());
 
+        hatsuneMiku.rateMovie(10);
+        hatsuneMiku.rateMovie(9);
+
+        Recommendations recommendation = new Recommendations();
+        recommendation.filterRecommendations(hatsuneMiku);
+
+        Episodes newEpisode = new Episodes();
+        newEpisode.setEpNumber(1);
+        newEpisode.setEpTitle("Episode 1");
+        newEpisode.setSerie(siliconValley);
+        newEpisode.setTotalViews(7000);
+
+        recommendation.filterRecommendations(newEpisode);
 
     }
 }

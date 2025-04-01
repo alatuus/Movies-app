@@ -1,6 +1,8 @@
 package titles.model;
 
-public class Movies extends Titles {
+import titles.calcs.Classification;
+
+public class Movies extends Titles implements Classification {
     private String movieDirector;
 
     public void setMovieDirector(String movieDirector) {
@@ -9,5 +11,10 @@ public class Movies extends Titles {
 
     public String getMovieDirector() {
         return movieDirector;
+    }
+
+    @Override
+    public int getClassification() {
+        return (int) averageRating() / 2;
     }
 }
