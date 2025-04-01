@@ -8,10 +8,6 @@ public class Titles {
     private int numOfRatings; // total number of ratings registered
     private int Length;
 
-    public int getNumOfRatings() {
-        return numOfRatings;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -25,10 +21,6 @@ public class Titles {
 
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public void setIncludedInPlan(boolean includedInPlan) {
         this.includedInPlan = includedInPlan;
     }
@@ -36,6 +28,27 @@ public class Titles {
     public void setLength(int length) {
         this.Length = length;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public boolean getIncludedInPlan() {
+        return includedInPlan;
+    }
+
+    public int getLength() {
+        return Length;
+    }
+
+    public int getNumOfRatings() {
+        return numOfRatings;
+    }
+
 
     public void showTechnicalInfos(){
         System.out.println("Title: " + title);
