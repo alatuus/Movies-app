@@ -19,13 +19,18 @@ public class Main {
         System.out.println(hatsuneMiku.getNumOfRatings());
 
         Series siliconValley = new Series();
+
         siliconValley.setTitle("Silicon Valley");
         siliconValley.setReleaseYear(2014);
         siliconValley.setIncludedInPlan(true);
         siliconValley.setLength(30);
         siliconValley.setNumOfSeasons(6);
         siliconValley.setActiveAiring(false);
+        siliconValley.setEpisodesPerSeason(10);
+
         siliconValley.showTechnicalInfos();
+        siliconValley.showSpecificInfos();
+
 
     }
 }

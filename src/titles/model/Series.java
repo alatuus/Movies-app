@@ -5,6 +5,16 @@ public class Series extends Titles {
     private int episodesPerSeason;
     private boolean activeAiring;
 
+    public void showSpecificInfos(){
+        System.out.println(this.getNumOfSeasons());
+        System.out.println(this.getEpisodesPerSeason());
+        if(this.activeAiring){
+            System.out.println("Active airing");
+        } else{
+            System.out.println("Finished airing");
+        }
+    }
+
     public void setNumOfSeasons(int numOfSeasons) {
         this.numOfSeasons = numOfSeasons;
     }
