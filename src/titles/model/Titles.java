@@ -1,5 +1,7 @@
 package titles.model;
 
+import titles.calcs.Classification;
+
 public class Titles {
     private String title;
     private int releaseYear;
@@ -7,6 +9,9 @@ public class Titles {
     private double ratingsTotal; // total sum of movie ratings
     private int numOfRatings; // total number of ratings registered
     private int Length;
+
+    // IMPORTANTE!!! criar um construtor para os titulos + pra frente, tirar getters e setters pros parametros
+    // usados no construtor
 
     public void setTitle(String title) {
         this.title = title;

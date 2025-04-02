@@ -1,8 +1,13 @@
+package titles.main;
+
 import titles.calcs.Recommendations;
 import titles.calcs.TimeCalcs;
 import titles.model.Episodes;
 import titles.model.Movies;
 import titles.model.Series;
+import titles.model.Titles;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){
@@ -45,6 +50,24 @@ public class Main {
         newEpisode.setTotalViews(7000);
 
         recommendation.filterRecommendations(newEpisode);
+
+        var nosferatu = new Movies();
+        nosferatu.setTitle("Nosferatu");
+        nosferatu.setLength(130);
+        nosferatu.setReleaseYear(2025);
+        nosferatu.rateMovie(6);
+
+        ArrayList<Titles> watchList = new ArrayList<>();
+        watchList.add(hatsuneMiku);
+        watchList.add(megamind);
+        watchList.add(nosferatu);
+        watchList.add(siliconValley);
+
+        System.out.println("Watch list: ");
+        for (Titles item: watchList) {
+            // Titles title = (Titles) item;  ------- achar um jeito de corrigir isso
+            System.out.println(item);
+        }
 
     }
 }

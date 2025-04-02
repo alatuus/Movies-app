@@ -48,5 +48,10 @@ public class Series extends Titles {
         return episodeLength;
     }
 
+    @Override
+    public String toString() {
+        return "Series: " + this.getTitle() + " (" + this.getReleaseYear() + ")";
+    }
+
 }
 
