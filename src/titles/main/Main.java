@@ -1,5 +1,6 @@
 package titles.main;
 
+import com.google.gson.Gson;
 import titles.calcs.Recommendations;
 import titles.calcs.TimeCalcs;
 import titles.model.Episodes;
@@ -7,67 +8,44 @@ import titles.model.Movies;
 import titles.model.Series;
 import titles.model.Titles;
 
-import java.util.ArrayList;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
+import java.io.IOException;
+import java.net.Authenticator;
+import java.net.CookieHandler;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class Main {
-    public static void main(String[] args){
-        Movies hatsuneMiku = new Movies();
-        hatsuneMiku.setTitle("Project Sekai: Kowareta Sekai to Utaenai Miku") ;
-        hatsuneMiku.setReleaseYear(2025);
-        hatsuneMiku.setLength(130);
-        hatsuneMiku.setIncludedInPlan(true);
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        Movies megamind = new Movies();
-        megamind.setTitle("Megamind");
-        megamind.setLength(130);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the title: ");
+        var search = scanner.nextLine();
 
-        Series siliconValley = new Series();
-        siliconValley.setTitle("Silicon Valley");
-        siliconValley.setReleaseYear(2014);
-        siliconValley.setIncludedInPlan(true);
-        siliconValley.setLength(1800);
-        siliconValley.setNumOfSeasons(6);
-        siliconValley.setActiveAiring(false);
-        siliconValley.setEpisodesPerSeason(10);
-        siliconValley.setEpisodeLength(30);
+        String address = "https://www.omdbapi.com/?t=" + search + "&apikey=";
 
-        TimeCalcs calcs = new TimeCalcs();
+        // api key
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(address))
+                .build();
+        HttpResponse<String> response = client
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        //System.out.println(response.body());
 
-        calcs.include(hatsuneMiku);
-        calcs.include(megamind);
-        calcs.include(siliconValley);
+        Gson gson = new Gson();
+        Titles title = gson.fromJson(response.body(), Titles.class);
+        System.out.println(title);
 
-        hatsuneMiku.rateMovie(10);
-        hatsuneMiku.rateMovie(9);
 
-        Recommendations recommendation = new Recommendations();
-        recommendation.filterRecommendations(hatsuneMiku);
-
-        Episodes newEpisode = new Episodes();
-        newEpisode.setEpNumber(1);
-        newEpisode.setEpTitle("Episode 1");
-        newEpisode.setSerie(siliconValley);
-        newEpisode.setTotalViews(7000);
-
-        recommendation.filterRecommendations(newEpisode);
-
-        var nosferatu = new Movies();
-        nosferatu.setTitle("Nosferatu");
-        nosferatu.setLength(130);
-        nosferatu.setReleaseYear(2025);
-        nosferatu.rateMovie(6);
-
-        ArrayList<Titles> watchList = new ArrayList<>();
-        watchList.add(hatsuneMiku);
-        watchList.add(megamind);
-        watchList.add(nosferatu);
-        watchList.add(siliconValley);
-
-        System.out.println("Watch list: ");
-        for (Titles item: watchList) {
-            // Titles title = (Titles) item;  ------- achar um jeito de corrigir isso
-            System.out.println(item);
-        }
 
     }
 }

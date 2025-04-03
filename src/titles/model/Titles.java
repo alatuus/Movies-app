@@ -1,9 +1,12 @@
 package titles.model;
 
+import com.google.gson.annotations.SerializedName;
 import titles.calcs.Classification;
 
-public class Titles {
+public class Titles implements Comparable<Titles>{
+    @SerializedName("Title")
     private String title;
+    @SerializedName("Year")
     private int releaseYear;
     private boolean includedInPlan;
     private double ratingsTotal; // total sum of movie ratings
@@ -71,5 +74,17 @@ public class Titles {
 
     public double averageRating(){
         return ratingsTotal / numOfRatings;
+    }
+
+    @Override
+    public int compareTo(Titles title) {
+        return this.getTitle().compareTo(title.getTitle());
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title
+                + "\nRelease Year: " + releaseYear;
+
     }
 }
