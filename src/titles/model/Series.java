@@ -6,6 +6,10 @@ public class Series extends Titles {
     private boolean activeAiring;
     int episodeLength;
 
+    public Series(String title, int releaseYear, int length) {
+        super(title, releaseYear, length);
+    }
+
     public void showSpecificInfos(){
         System.out.println(this.getNumOfSeasons());
         System.out.println(this.getEpisodesPerSeason());

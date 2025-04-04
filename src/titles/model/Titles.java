@@ -1,7 +1,6 @@
 package titles.model;
 
 import com.google.gson.annotations.SerializedName;
-import titles.calcs.Classification;
 
 public class Titles implements Comparable<Titles>{
     @SerializedName("Title")
@@ -11,7 +10,20 @@ public class Titles implements Comparable<Titles>{
     private boolean includedInPlan;
     private double ratingsTotal; // total sum of movie ratings
     private int numOfRatings; // total number of ratings registered
-    private int Length;
+    private int length;
+
+
+    public Titles(String title, int releaseYear, int length){
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.length = length;
+    }
+
+    public Titles(TitlesOmdb omdbTitle) {
+        this.title = omdbTitle.title();
+        this.releaseYear = Integer.valueOf(omdbTitle.year());
+        this.length = Integer.valueOf(omdbTitle.runtime().substring(0, omdbTitle.runtime().length()-4));
+    }
 
     // IMPORTANTE!!! criar um construtor para os titulos + pra frente, tirar getters e setters pros parametros
     // usados no construtor
@@ -34,7 +46,7 @@ public class Titles implements Comparable<Titles>{
     }
 
     public void setLength(int length) {
-        this.Length = length;
+        this.length = length;
     }
 
     public String getTitle() {
@@ -50,7 +62,7 @@ public class Titles implements Comparable<Titles>{
     }
 
     public int getLength() {
-        return Length;
+        return length;
     }
 
     public int getNumOfRatings() {
@@ -64,7 +76,7 @@ public class Titles implements Comparable<Titles>{
         System.out.println("Included in plan: " + includedInPlan);
         System.out.println("Rating: " + averageRating());
         System.out.println("Total ratings: " + numOfRatings);
-        System.out.println("Movie length: " + Length);
+        System.out.println("Movie length: " + length);
     }
 
     public void rateMovie(double rating){
@@ -84,7 +96,8 @@ public class Titles implements Comparable<Titles>{
     @Override
     public String toString() {
         return "Title: " + title
-                + "\nRelease Year: " + releaseYear;
+                + "\nRelease Year: " + releaseYear
+                + "\nLength: " + length;
 
     }
 }

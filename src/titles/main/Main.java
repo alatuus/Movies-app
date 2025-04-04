@@ -1,12 +1,15 @@
 package titles.main;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import titles.calcs.Recommendations;
 import titles.calcs.TimeCalcs;
 import titles.model.Episodes;
 import titles.model.Movies;
 import titles.model.Series;
 import titles.model.Titles;
+import titles.model.TitlesOmdb;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
@@ -26,6 +29,11 @@ import java.util.concurrent.Executor;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        Titles testMovie = new Titles("Megamind", 2016, 130);
+        testMovie.setTitle("Megamind");
+        testMovie.setReleaseYear(2017);
+        testMovie.setLength(130);
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the title: ");
         var search = scanner.nextLine();
@@ -41,9 +49,14 @@ public class Main {
                 .send(request, HttpResponse.BodyHandlers.ofString());
         //System.out.println(response.body());
 
-        Gson gson = new Gson();
-        Titles title = gson.fromJson(response.body(), Titles.class);
-        System.out.println(title);
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
+        // Titles title = gson.fromJson(response.body(), Titles.class);
+        TitlesOmdb omdbTitle = gson.fromJson(response.body(), TitlesOmdb.class);
+        System.out.println(omdbTitle);
+
+        Titles testTitle = new Titles(omdbTitle);
 
 
 
