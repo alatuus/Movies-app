@@ -1,11 +1,11 @@
 package titles.model;
 
+import titles.exception.YearConversionErrorException;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Titles implements Comparable<Titles>{
-    @SerializedName("Title")
     private String title;
-    @SerializedName("Year")
     private int releaseYear;
     private boolean includedInPlan;
     private double ratingsTotal; // total sum of movie ratings
@@ -21,6 +21,9 @@ public class Titles implements Comparable<Titles>{
 
     public Titles(TitlesOmdb omdbTitle) {
         this.title = omdbTitle.title();
+        if(omdbTitle.year().length() > 4){
+            throw new YearConversionErrorException("Year conversion failed");
+        }
         this.releaseYear = Integer.valueOf(omdbTitle.year());
         this.length = Integer.valueOf(omdbTitle.runtime().substring(0, omdbTitle.runtime().length()-4));
     }
